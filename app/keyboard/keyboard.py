@@ -13,8 +13,6 @@ def keyboard_gen(buttons: list[str]) -> ReplyKeyboardMarkup:
 
 
 def inline_keyboard_gen(buttons: list[str]) -> InlineKeyboardButton:
-    buttons = buttons[1:len(buttons)-1].split(", ")
-    buttons = [i[1:len(i)-1] for i in buttons]
     builder = InlineKeyboardBuilder()
     for button in buttons:
         builder.button(text=button[4:], callback_data=ResCallbackFab(action=button[4:]))

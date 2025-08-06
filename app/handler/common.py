@@ -5,7 +5,8 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from app.keyboard.keyboard import keyboard_gen
 from app.state.status import Status
 from app.handler.game import game
-import pandas as pd
+from app.source import dataset
+from random import randint
 
 options = ["5", "10", "15", "20"]
 router = Router()
@@ -26,10 +27,12 @@ async def play(message: Message, state: FSMContext):
 
 @router.message(Status.set_number_of_quiz, F.text.in_(options))
 async def set_number_of_quiz(message: Message, state: FSMContext):
-    await state.update_data(quizes=pd.read_csv("./app/source.csv").sample(frac=1).reset_index(drop=True))
+    quizes = [dataset.copy().pop(randint(0, len(dataset.copy()) - 1)) for _ in range(int(message.text))]
+    await state.update_data(quizes=quizes)
     await state.update_data(num_quiz=int(message.text))
     await state.update_data(count=0)
     await state.update_data(score=0)
+    await message.answer(text="Wonderful, let's start ...", reply_markup=ReplyKeyboardRemove())
     await game(message=message, state=state)
 
 
