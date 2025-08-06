@@ -1,4 +1,4 @@
-# 🤖 Python Telegram Bot Quiz (aiogram v3)
+# 🤖 Python Quiz Telegram Bot (aiogram v3)
 
 A fun and interactive **Quiz Bot for Telegram** built using **Python** and **aiogram v3**. Users can play quick multiple-choice quizzes directly in Telegram with instant feedback, scoring, and replay options.
 
